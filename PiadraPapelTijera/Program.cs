@@ -12,12 +12,33 @@ namespace PiadraPapelTijera
 
         static void Main(string[] args)
         {
+            Random random = new Random();
+            bool jugar = true;
+            int nRondes = 0;
+            int nGuanyades = 0;
+
+            Console.WriteLine("Benvingut al Joc Pedra,Paper,Tisores");
+            while (jugar)
+            {
+                int usuari = opcioUsuari();
+                int ordinaror=random.Next(0,3);
+                string resultat = comprovaQuiGuanya(usuari,ordinaror);
+                nRondes++;
+                if (resultat=="Guanyes")
+                {
+                    nGuanyades++;
+                }
+
+                Console.WriteLine($"Rondes jugades {nRondes} de les quals has guanyat {nGuanyades}");
+                jugar=continuarJugant();
+            }
+            
         }
         
         private static string comprovaQuiGuanya (int opcioUsuari, int opcioOrdinador)
         {
-            Console.WriteLine("         Usuari: " + opcioUsuari);
-            Console.WriteLine("         Ordinador: " + opcioOrdinador);
+            Console.WriteLine("         Usuari: " + opcions[opcioUsuari]);
+            Console.WriteLine("         Ordinador: " + opcions[opcioOrdinador]);
             Console.WriteLine("         " + resultats[opcioUsuari, opcioOrdinador]);
 
             return resultats[opcioUsuari, opcioOrdinador];
@@ -43,6 +64,31 @@ namespace PiadraPapelTijera
             {
                 return opcioUsuari();
             }
+        }
+        private static bool continuarJugant()
+        {
+            string resposta;
+
+            Console.WriteLine("Vols continuar jugant (SI/NO)? ");
+            resposta = Console.ReadLine();
+            if (resposta.ToUpper() == "SI")
+            {
+                Console.WriteLine("------------------------------- ");
+                return true;
+            }
+            else if (resposta.ToUpper() == "NO")
+            {
+                return false;
+            }
+            else
+            {
+                return continuarJugant();
+            }
+            
+
+
+
+
         }
     }
 }
